@@ -23,7 +23,7 @@ protocol CheckersGameControllerDelegate: class {
 ///You can send messages to the CheckersGameController through 3 functions: positionSelected, switchPlayers, and resetGame. positionSelected should be used to inform the controller that a player interacted with a part of the game board.  The controller will decide of the interaction constitutes a legal move and notify its delegate accordingly.  switchPlayers should be used to notify the controller that the active player has switched and the controller should now only allow interaction with the pieces of the appropriate player.  resetGame restores the game to its initial state.
 class CheckersGameController {
     
-    var currentPlayer = Player.red
+    fileprivate var currentPlayer = Player.red
     
     var boardState: [[CheckersPiece?]] = []
     
@@ -94,7 +94,10 @@ class CheckersGameController {
     func resetGame(){
         boardState = setupInitialBoard()
         currentPlayer = .red
+        playerHasMoved = false
+        moveWasJump = false
         delegate?.checkersGameControllerUpdatedBoard()
+        delegate?.activePlayerChanged(toPlayer: .red)
     }
 
     //MARK: - Movement
@@ -240,5 +243,53 @@ class CheckersGameController {
         lastRowStartedWithEmptySpace = !lastRowStartedWithEmptySpace
         return row
     }
+}
+
+//MARK: - Persistence
+extension CheckersGameController {
+    private enum JSONKeys : String {
+        case currentPlayer
+        case boardState
+    }
     
+    var dictionaryRepresentation: [String:Any] {
+        var dictionary: [String: Any] = [:]
+        dictionary.updateValue(boardState, forKey: JSONKeys.boardState.rawValue)
+        dictionary.updateValue(currentPlayer, forKey: JSONKeys.currentPlayer.rawValue)
+        return dictionary
+    }
+    
+    func restore(from dictionary: Dictionary<String, Any>){
+        guard let boardState = dictionary[JSONKeys.boardState.rawValue] as? [[CheckersPiece?]], let currentPlayer = dictionary[JSONKeys.currentPlayer.rawValue] as? Player else {
+            NSLog("Cannot restore state from dictionary because not all requried values were stored in the provided dictionary")
+            return
+        }
+        self.currentPlayer = currentPlayer
+        self.boardState = boardState
+    }
+    
+    func saveGameState(boardState: [[CheckersPiece?]], currentPlayer: Player){
+        do {
+            let data = try JSONSerialization.data(withJSONObject: self.dictionaryRepresentation, options: .prettyPrinted)
+            try data.write(to: fileURL())
+        } catch let error {
+            NSLog("Cannot save game due to error: \(error.localizedDescription)")
+        }
+    }
+    
+    func loadGameState(){
+        do {
+            let data = try Data(contentsOf: fileURL())
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+        } catch let error {
+            NSLog("Could not load game state due to error: \(error.localizedDescription)")
+        }
+    }
+    
+    private func fileURL() -> URL {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let fileName = "checkers_state.json"
+        let fullURL = urls[0].appendingPathComponent(fileName)
+        return fullURL
+    }
 }
