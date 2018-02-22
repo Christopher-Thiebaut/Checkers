@@ -95,7 +95,8 @@ extension CheckersViewController: CheckersGameControllerDelegate{
             print("Cell called at \(indexPath), but no cell found")
             return}
         
-        cell.imageView?.layer.borderWidth = 5.0
+        cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.width ?? 0.0) / 2
+        cell.imageView?.layer.borderWidth = 3.5
         cell.imageView?.layer.borderColor = UIColor.yellow.cgColor
     }
     
@@ -104,7 +105,6 @@ extension CheckersViewController: CheckersGameControllerDelegate{
             print("Cell called at \(indexPath), but no cell found")
             return}
         
-        cell.imageView?.layer.borderWidth = 5.0
         cell.imageView?.layer.borderColor = UIColor.clear.cgColor}
 }
 
