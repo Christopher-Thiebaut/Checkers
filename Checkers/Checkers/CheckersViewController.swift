@@ -19,6 +19,7 @@ class CheckersViewController: UIViewController {
      [2,2,2,2,2,2,2,2],
      [2,2,2,2,2,2,2,2]]
     var gameController = CheckersGameController()
+    var lastSelectedIndex: IndexPath?
     
     // Black Magic for setting up size
     fileprivate let sectionInsets = UIEdgeInsets(top: 2.5, left: 0.0, bottom: 2.5, right: 0.0)
@@ -61,6 +62,49 @@ class CheckersViewController: UIViewController {
     */
 
 }
+
+extension CheckersViewController: CheckersGameControllerDelegate{
+    func checkersGameControllerUpdatedBoard() {
+        collectionView.reloadData()
+    }
+    
+    func playerWonGame(winner: Player) {
+        
+    }
+    
+    func pieceSelectedAt(_ position: IndexPath) {
+        guard let lastIndex = lastSelectedIndex else {
+            highlightCell(at: position)
+            return
+        }
+        
+        if lastIndex != position{
+            dehighlightCell(at: lastIndex)
+            lastSelectedIndex = position
+            highlightCell(at: position)
+        }
+    }
+    
+    // HELPER
+    
+    fileprivate func highlightCell(at indexPath: IndexPath){
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell else {
+            print("Cell called at \(indexPath), but no cell found")
+            return}
+        
+        cell.imageView?.layer.borderWidth = 5.0
+        cell.imageView?.layer.borderColor = UIColor.yellow.cgColor
+    }
+    
+    fileprivate func dehighlightCell(at indexPath: IndexPath){
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell else {
+            print("Cell called at \(indexPath), but no cell found")
+            return}
+        
+        cell.imageView?.layer.borderWidth = 5.0
+        cell.imageView?.layer.borderColor = UIColor.clear.cgColor}
+}
+
 
 extension CheckersViewController: UICollectionViewDataSource{
     
@@ -107,27 +151,6 @@ extension CheckersViewController: UICollectionViewDataSource{
         
         return cell
     }
-    
-}
-
-extension CheckersViewController: CheckersGameControllerDelegate{
-    func checkersGameControllerUpdatedBoard() {
-        //Testing animation
-//        UIView.animate(withDuration: 0.5) { [weak self] in
-//            self?.collectionView?.reloadData()
-//        }
-        
-        collectionView.reloadData()
-    }
-    
-    func playerWonGame(winner: Player) {
-        //
-    }
-    
-    func pieceSelectedAt(_ position: IndexPath) {
-        // Highlighting pieces
-    }
-    
     
 }
 
