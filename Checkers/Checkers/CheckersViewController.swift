@@ -9,7 +9,12 @@
 import UIKit
 
 class CheckersViewController: UIViewController {
+    
+    // Mock Model Controller
+    var gameState: [[Int]]?
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,4 +37,24 @@ class CheckersViewController: UIViewController {
     }
     */
 
+}
+
+extension CheckersViewController: UICollectionViewDataSource{
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+}
+
+extension CheckersViewController: UICollectionViewDelegate {
+    
 }
