@@ -67,7 +67,10 @@ class CheckersGameController {
             currentPlayer = currentPlayer == .red ? .black : .red
             currentlySelectedPosition = nil
             playerHasMoved = true
-        }else if boardState[chosenPosition.section][chosenPosition.row]?.owner == currentPlayer {
+            if moveWasJump {
+                currentlySelectedPosition = chosenPosition
+            }
+        }else if boardState[chosenPosition.section][chosenPosition.row]?.owner == currentPlayer && !moveWasJump {
             currentlySelectedPosition = chosenPosition
             delegate?.pieceSelectedAt(chosenPosition)
         }
@@ -116,7 +119,7 @@ class CheckersGameController {
             return false
         }
         let directionMultiplier = towardTop ? -1 : 1
-        if end.section == start.section + (directionMultiplier){
+        if end.section == start.section + (directionMultiplier) && !moveWasJump{
             if boardState[end.section][end.row] != nil {
                 return false
             }
@@ -136,8 +139,9 @@ class CheckersGameController {
                 //Remove the jumped piece
                 boardState[jumpedIndexPath.section][jumpedIndexPath.row] = nil
                 updatePiecesCount(forPlayer: jumpedOwner, adjustBy: -1)
-                moveWasJump = true
+                //If you want to set moveWasJump to true, always do so after calling movePiece because movePiece will set moveWasJump to false
                 movePiece(from: start, to: end)
+                moveWasJump = true
                 return true
             }else{
                 return false
@@ -150,6 +154,7 @@ class CheckersGameController {
     private func movePiece(from: IndexPath, to: IndexPath){
         boardState[to.section][to.row] = boardState[from.section][from.row]
         boardState[from.section][from.row] = nil
+        moveWasJump = false
         if let piece = boardState[to.section][to.row], shouldBeKing(piece, position: to) {
             piece.isKing = true
         }
