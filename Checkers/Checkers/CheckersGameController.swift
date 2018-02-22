@@ -14,15 +14,20 @@ protocol CheckersGameControllerDelegate: class {
     
     func playerWonGame(winner: Player)
     
+    func activePlayerChanged(toPlayer player: Player)
+    
     ///The delegate should use this function to update UI based on what peice is currently selected.
     func pieceSelectedAt(_ position: IndexPath)
 }
-
+///A controller to maintain the state of a checkers game.  The controller notifies its delegate of significant changes to the game state, such as pieces moving or being destroyed.  You can send messages to the CheckersGameController through 3 functions: positionSelected, switchPlayers, and resetGame. positionSelected should be used to inform the controller that a player interacted with a part of the game board.  The controller will decide of the interaction constitutes a legal move and notify its delegate accordingly.  switchPlayers should be used to notify the controller that the active player has switched and the controller should now only allow interaction with the pieces of the appropriate player.  resetGame restores the game to its initial state.
 class CheckersGameController {
     
     var currentPlayer = Player.red
     
-    var boardState: [[CheckersPiece?]] = [] 
+    var boardState: [[CheckersPiece?]] = []
+    
+    var playerHasMoved = false
+    var moveWasJump = false
     
     private var currentlySelectedPosition: IndexPath?
     
@@ -60,10 +65,28 @@ class CheckersGameController {
             delegate?.checkersGameControllerUpdatedBoard()
             currentPlayer = currentPlayer == .red ? .black : .red
             currentlySelectedPosition = nil
+            playerHasMoved = true
         }else if boardState[chosenPosition.section][chosenPosition.row]?.owner == currentPlayer {
             currentlySelectedPosition = chosenPosition
             delegate?.pieceSelectedAt(chosenPosition)
         }
+    }
+    
+    func switchPlayers(){
+        guard playerHasMoved else {
+            return
+        }
+        switch currentPlayer {
+        case .red:
+            currentPlayer = .black
+        case .black:
+            currentPlayer = .red
+        }
+        delegate?.activePlayerChanged(toPlayer: currentPlayer)
+    }
+    
+    func resetGame(){
+        boardState = setupInitialBoard()
     }
 
     //MARK: - Movement
@@ -109,6 +132,7 @@ class CheckersGameController {
                 //Remove the jumped piece
                 boardState[jumpedIndexPath.section][jumpedIndexPath.row] = nil
                 updatePiecesCount(forPlayer: jumpedOwner, adjustBy: -1)
+                moveWasJump = true
                 movePiece(from: start, to: end)
                 return true
             }else{
