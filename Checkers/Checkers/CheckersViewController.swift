@@ -52,6 +52,7 @@ class CheckersViewController: UIViewController {
 
     @IBAction func resetCalled(_ sender: Any) {
         gameController.resetGame()
+        lastSelectedIndex = nil
     }
     
 }
@@ -71,13 +72,12 @@ extension CheckersViewController: CheckersGameControllerDelegate{
     func playerWonGame(winner: Player) {
         // Alert Controller
         let winnerAlertController = UIAlertController(title: "Winner!", message: "Congratulations! \(winner == .red ? "Red":"Black") has won!", preferredStyle: .alert)
-        let okayAction = UIAlertAction(title: "Play again", style: .default) { _ in
-            //
+        let okayAction = UIAlertAction(title: "Play again", style: .default) { [weak self] _ in
+            self?.gameController.resetGame()
+            self?.lastSelectedIndex = nil
         }
         winnerAlertController.addAction(okayAction)
-        present(winnerAlertController, animated: true) {
-            //
-        }
+        present(winnerAlertController, animated: true)
     }
     
     func pieceSelectedAt(_ position: IndexPath) {
