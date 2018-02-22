@@ -86,9 +86,11 @@ class CheckersGameController {
             if boardState[end.section][end.row] != nil {
                 return false
             }
-            var jumpedPiece = boardState[end.section - 1][(start.row + end.row)/2]
+            let jumpedIndexPath = IndexPath.init(row: (start.row + end.row)/2, section: end.section - directionMultiplier)
+            let jumpedPiece = boardState[jumpedIndexPath.section][jumpedIndexPath.row]
             if let jumpedOwner = jumpedPiece?.owner, jumpedOwner != currentPlayer {
-                jumpedPiece = nil
+                //Remove the jumped piece
+                boardState[jumpedIndexPath.section][jumpedIndexPath.row] = nil
                 updatePiecesCount(forPlayer: jumpedOwner, adjustBy: -1)
                 movePiece(from: start, to: end)
                 return true
@@ -103,6 +105,15 @@ class CheckersGameController {
     private func movePiece(from: IndexPath, to: IndexPath){
         boardState[to.section][to.row] = boardState[from.section][from.row]
         boardState[from.section][from.row] = nil
+    }
+    
+    private func shouldBeKing(_ piece: CheckersPiece, position: IndexPath) -> Bool {
+        switch piece.owner {
+        case .red:
+            return position.section == 0
+        case .black:
+            return (position.section == boardSize - 1)
+        }
     }
     
     //MARK: - Setup
