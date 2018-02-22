@@ -45,22 +45,14 @@ class CheckersViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func endTurnCalled(){
+        //
+    }
+
+    @IBAction func resetCalled(_ sender: Any) {
+        //
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension CheckersViewController: CheckersGameControllerDelegate{
@@ -72,7 +64,15 @@ extension CheckersViewController: CheckersGameControllerDelegate{
     }
     
     func playerWonGame(winner: Player) {
-        
+        // Alert Controller
+        let winnerAlertController = UIAlertController(title: "Winner!", message: "Congratulations! \(winner == .red ? "Red":"Black") has won!", preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "Play again", style: .default) { _ in
+            //
+        }
+        winnerAlertController.addAction(okayAction)
+        present(winnerAlertController, animated: true) {
+            //
+        }
     }
     
     func pieceSelectedAt(_ position: IndexPath) {
@@ -159,12 +159,6 @@ extension CheckersViewController: UICollectionViewDataSource{
         
         cell.imageView?.image = UIImage(named: piece!.owner == .red ? "red" : "black")
         
-        
-//        let colors = [UIColor.green, UIColor.blue, UIColor.red]
-//        let debugState = gameState[indexPath.section][indexPath.row]
-//        cell.backgroundColor = colors[debugState]
-//        cell.imageView?.image = UIImage(named: ["null","red","black"][debugState])
-        
         return cell
     }
     
@@ -175,10 +169,6 @@ extension CheckersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: Sect:\(indexPath.section) Row:\(indexPath.row)")
         gameController.positionSelected(indexPath)
-//        let emptyRow = Array<CheckersPiece?>.init(repeating: nil, count: 8)
-//        for i in 0...7{
-//            gameController.boardState[i] = emptyRow
-//        }
     }
 }
 
