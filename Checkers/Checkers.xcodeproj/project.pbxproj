@@ -319,7 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JM5E6M7XJW;
+				DEVELOPMENT_TEAM = P2KUM2RUDP;
 				INFOPLIST_FILE = "$(SRCROOT)/Checkers/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.christopherthiebaut.Checkers;
@@ -334,7 +334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JM5E6M7XJW;
+				DEVELOPMENT_TEAM = P2KUM2RUDP;
 				INFOPLIST_FILE = "$(SRCROOT)/Checkers/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.christopherthiebaut.Checkers;
