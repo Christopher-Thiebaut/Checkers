@@ -57,6 +57,7 @@ class CheckersGameController {
     
     private var lastRowStartedWithEmptySpace = false
     
+    //MARK: - Public methods
     init() {
         boardState = setupInitialBoard()
         //loadGameState()
@@ -65,14 +66,15 @@ class CheckersGameController {
     func positionSelected(_ chosenPosition: IndexPath){
         if let currentPosition = currentlySelectedPosition, performMove(start: currentPosition, end: chosenPosition) {
             delegate?.checkersGameControllerUpdatedBoard()
-            //currentPlayer = currentPlayer == .red ? .black : .red
             currentlySelectedPosition = nil
             playerHasMoved = true
             if moveWasJump {
                 currentlySelectedPosition = chosenPosition
             }
-        }else if boardState[chosenPosition.section][chosenPosition.row]?.owner == currentPlayer && !moveWasJump {
+        }else if boardState[chosenPosition.section][chosenPosition.row]?.owner == currentPlayer && !playerHasMoved {
             currentlySelectedPosition = chosenPosition
+            delegate?.pieceSelectedAt(chosenPosition)
+        }else if chosenPosition == currentlySelectedPosition{
             delegate?.pieceSelectedAt(chosenPosition)
         }
     }
