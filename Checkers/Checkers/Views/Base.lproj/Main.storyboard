@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Checkers View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="CheckersViewController" customModule="Checkers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOX-a5-psk">
+                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gUd-aa-5F7">
+                                        <rect key="frame" x="7.5" y="5" width="360" height="365"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="0HH-TR-SaG">
+                                            <size key="itemSize" width="132" height="132"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="checkersCell" id="lx8-cG-hgd" customClass="ImageCollectionViewCell" customModule="Checkers" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="132" height="132"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="132" height="132"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_king" translatesAutoresizingMaskIntoConstraints="NO" id="qEw-sI-WNw">
+                                                            <rect key="frame" x="16.5" y="16.5" width="99" height="99"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="qEw-sI-WNw" secondAttribute="height" multiplier="1:1" id="x48-BA-2as"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                </view>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="qEw-sI-WNw" firstAttribute="width" secondItem="lx8-cG-hgd" secondAttribute="width" multiplier="0.75" id="Zv3-8x-CiN"/>
+                                                    <constraint firstItem="qEw-sI-WNw" firstAttribute="centerX" secondItem="lx8-cG-hgd" secondAttribute="centerX" id="auA-HR-duu"/>
+                                                    <constraint firstItem="qEw-sI-WNw" firstAttribute="centerY" secondItem="lx8-cG-hgd" secondAttribute="centerY" id="t9s-oh-crG"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="imageView" destination="qEw-sI-WNw" id="1lj-3t-QcB"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="dJw-H7-9fg"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="SgG-7X-Zbu"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="gUd-aa-5F7" firstAttribute="leading" secondItem="kOX-a5-psk" secondAttribute="leading" constant="7.5" id="PsK-3e-TjC"/>
+                                    <constraint firstAttribute="bottom" secondItem="gUd-aa-5F7" secondAttribute="bottom" constant="5" id="aPd-IY-OPg"/>
+                                    <constraint firstAttribute="width" secondItem="kOX-a5-psk" secondAttribute="height" multiplier="1:1" id="fXg-Md-RhC"/>
+                                    <constraint firstItem="gUd-aa-5F7" firstAttribute="top" secondItem="kOX-a5-psk" secondAttribute="top" constant="5" id="hB6-0t-xro"/>
+                                    <constraint firstAttribute="trailing" secondItem="gUd-aa-5F7" secondAttribute="trailing" constant="7.5" id="vOB-FA-RZB"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKC-R5-dS6">
+                                <rect key="frame" x="16" y="45" width="86" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="86" id="FKO-OV-MwD"/>
+                                    <constraint firstAttribute="height" constant="30" id="FMQ-c1-Zva"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="End Turn">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="xas-5u-dDj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kkd-Rf-sSY">
+                                <rect key="frame" x="16" y="590" width="94" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.04677283753" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Kak-Fq-ZGy"/>
+                                    <constraint firstAttribute="width" constant="94" id="zW6-we-Y5A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="2br-c4-PhV"/>
+                                    <action selector="resentButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e93-ls-ty7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5q3-7C-jFC">
+                                <rect key="frame" x="265" y="590" width="94" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PwC-u0-l67"/>
+                                    <constraint firstAttribute="width" constant="94" id="mv7-lW-cmO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="End Turn">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="D2P-B3-vTN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aKC-R5-dS6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="1jz-5u-jGd"/>
+                            <constraint firstItem="aKC-R5-dS6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="8U0-rL-dhu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Kkd-Rf-sSY" secondAttribute="bottom" constant="47" id="9g8-dB-8Rw"/>
+                            <constraint firstItem="kOX-a5-psk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Gyc-5W-sXt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5q3-7C-jFC" secondAttribute="bottom" constant="47" id="JQm-yF-iNu"/>
+                            <constraint firstItem="Kkd-Rf-sSY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="MUG-lO-XCB"/>
+                            <constraint firstItem="kOX-a5-psk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SF3-9X-Xwm"/>
+                            <constraint firstItem="kOX-a5-psk" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="e9B-LR-q2l"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5q3-7C-jFC" secondAttribute="trailing" constant="16" id="gjU-ot-iXl"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="blackPlayerEndTurnButton" destination="aKC-R5-dS6" id="dQi-B8-lTc"/>
+                        <outlet property="collectionView" destination="gUd-aa-5F7" id="FOZ-i6-6cM"/>
+                        <outlet property="redPlayerEndTurnButton" destination="5q3-7C-jFC" id="qvQ-VF-2HW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="92.203898050974516"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="black_king" width="220" height="220"/>
+    </resources>
+</document>
