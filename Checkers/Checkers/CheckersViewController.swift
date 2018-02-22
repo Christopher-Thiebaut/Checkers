@@ -65,6 +65,9 @@ class CheckersViewController: UIViewController {
 
 extension CheckersViewController: CheckersGameControllerDelegate{
     func checkersGameControllerUpdatedBoard() {
+        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+            dehighlightCell(at: indexPath)
+        }
         collectionView.reloadData()
     }
     
@@ -75,6 +78,7 @@ extension CheckersViewController: CheckersGameControllerDelegate{
     func pieceSelectedAt(_ position: IndexPath) {
         guard let lastIndex = lastSelectedIndex else {
             highlightCell(at: position)
+            lastSelectedIndex = position
             return
         }
         
@@ -141,6 +145,18 @@ extension CheckersViewController: UICollectionViewDataSource{
             cell.imageView!.image = nil
             return cell
         }
+        
+        switch (piece!.isKing, piece!.owner){
+        case (true, .red):
+            cell.imageView?.image = #imageLiteral(resourceName: "red_king")
+        case (false, .red):
+            cell.imageView?.image = #imageLiteral(resourceName: "red")
+        case (true, .black):
+            cell.imageView?.image = #imageLiteral(resourceName: "black_king")
+        case (false, .black):
+            cell.imageView?.image = #imageLiteral(resourceName: "black")
+        }
+        
         cell.imageView?.image = UIImage(named: piece!.owner == .red ? "red" : "black")
         
         
