@@ -30,7 +30,7 @@ class CheckersGameController {
     
     let boardSize = 8
     
-    private var justDidType1Row = false
+    private var lastRowStartedWithEmptySpace = false
     
     init() {
         boardState = setupInitialBoard()
@@ -56,7 +56,7 @@ class CheckersGameController {
                 return false
             }
             if end.row == start.row + 1 || end.row == start.row - 1 {
-                
+                boardState[end.section][end.row] = piece
                 return true
             }else{
                 return false
@@ -65,8 +65,10 @@ class CheckersGameController {
             if boardState[end.section][end.row] != nil {
                 return false
             }
-            let jumpedSpace = boardState[end.section - 1][(start.row + end.row)/2]
-            if let jumpedOwner = jumpedSpace?.owner, jumpedOwner != currentPlayer {
+            var jumpedPiece = boardState[end.section - 1][(start.row + end.row)/2]
+            if let jumpedOwner = jumpedPiece?.owner, jumpedOwner != currentPlayer {
+                jumpedPiece = nil
+                
                 return true
             }else{
                 return false
@@ -78,28 +80,28 @@ class CheckersGameController {
     
     private func setupInitialBoard() -> [[CheckersPiece?]]{
         var board: [[CheckersPiece?]] = []
-        let playerSpace = (boardSize/2) - 2
+        let playerSpace = (boardSize/2) - 1
         
         for _ in 0..<playerSpace {
-            if justDidType1Row {
-                board.append(createRowPrototype2(forPlayer: Player.black))
+            if lastRowStartedWithEmptySpace {
+                board.append(createRowWithFilledStart(forPlayer: Player.black))
             }else{
-                board.append(createRowPrototype1(forPlayer: Player.black))
+                board.append(createRowWithEmptyStart(forPlayer: Player.black))
             }
         }
         board.append(createEmptyRow())
         board.append(createEmptyRow())
         for _ in 0..<playerSpace {
-            if justDidType1Row {
-                board.append(createRowPrototype2(forPlayer: Player.red))
+            if lastRowStartedWithEmptySpace {
+                board.append(createRowWithFilledStart(forPlayer: Player.red))
             }else{
-                board.append(createRowPrototype1(forPlayer: Player.red))
+                board.append(createRowWithEmptyStart(forPlayer: Player.red))
             }
         }
         return board
     }
     
-    private func createRowPrototype1(forPlayer player: Player) -> [CheckersPiece?]{
+    private func createRowWithEmptyStart(forPlayer player: Player) -> [CheckersPiece?]{
         var row: [CheckersPiece?] = []
         for position in 0..<boardSize {
             if position % 2 == 0 {
@@ -108,11 +110,11 @@ class CheckersGameController {
                 row.append(CheckersPiece(owner: player))
             }
         }
-        justDidType1Row = true
+        lastRowStartedWithEmptySpace = true
         return row
     }
     
-    private func createRowPrototype2(forPlayer player: Player) -> [CheckersPiece?]{
+    private func createRowWithFilledStart(forPlayer player: Player) -> [CheckersPiece?]{
         var row: [CheckersPiece?] = []
         for position in 0..<boardSize {
             if position % 2 != 0 {
@@ -121,7 +123,7 @@ class CheckersGameController {
                 row.append(CheckersPiece(owner: player))
             }
         }
-        justDidType1Row = false
+        lastRowStartedWithEmptySpace = false
         return row
     }
     
@@ -130,7 +132,7 @@ class CheckersGameController {
         for _ in 0..<boardSize {
             row.append(nil)
         }
-        justDidType1Row = !justDidType1Row
+        lastRowStartedWithEmptySpace = !lastRowStartedWithEmptySpace
         return row
     }
     
