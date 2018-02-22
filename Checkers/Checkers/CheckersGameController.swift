@@ -30,6 +30,8 @@ class CheckersGameController {
         didSet {
             if blackPieces == 0 {
                 delegate?.playerWonGame(winner: .red)
+            }else if blackPieces < 0 {
+                fatalError("Fix your piece counting logic, dummy")
             }
         }
     }
@@ -37,6 +39,8 @@ class CheckersGameController {
         didSet {
             if redPieces == 0 {
                 delegate?.playerWonGame(winner: .black)
+            }else if redPieces < 0 {
+                fatalError("Fix your piece counting logic, dummy")
             }
         }
     }
@@ -54,6 +58,8 @@ class CheckersGameController {
     func positionSelected(_ chosenPosition: IndexPath){
         if let currentPosition = currentlySelectedPosition, performMove(start: currentPosition, end: chosenPosition) {
             delegate?.checkersGameControllerUpdatedBoard()
+            currentPlayer = currentPlayer == .red ? .black : .red
+            currentlySelectedPosition = nil
         }else if boardState[chosenPosition.section][chosenPosition.row]?.owner == currentPlayer {
             currentlySelectedPosition = chosenPosition
             delegate?.pieceSelectedAt(chosenPosition)
@@ -65,7 +71,7 @@ class CheckersGameController {
         guard let piece = boardState[start.section][start.row], piece.owner == currentPlayer  else {
             return false
         }
-        let directionMultiplier = currentPlayer == Player.red ? 1 : -1
+        let directionMultiplier = currentPlayer == Player.red ? -1 : 1
         if end.section == start.section + (directionMultiplier){
             if boardState[end.section][end.row] != nil {
                 return false
