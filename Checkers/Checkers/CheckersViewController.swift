@@ -19,12 +19,11 @@ class CheckersViewController: UIViewController {
      [2,2,2,2,2,2,2,2],
      [2,2,2,2,2,2,2,2]]
     var gameController = CheckersGameController()
-    // resetGameState
 
     var lastSelectedIndex: IndexPath?
     
     // Black Magic for setting up size
-    fileprivate let sectionInsets = UIEdgeInsets(top: 2.5, left: 0.0, bottom: 2.5, right: 0.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 1.5, left: 0.0, bottom: 1.5, right: 0.0)
     fileprivate let itemsPerRow: CGFloat = 9
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -48,11 +47,11 @@ class CheckersViewController: UIViewController {
     }
 
     @IBAction func endTurnCalled(){
-        //
+        gameController.switchPlayers()
     }
 
     @IBAction func resetCalled(_ sender: Any) {
-        //
+        gameController.resetGame()
     }
     
 }
@@ -200,4 +199,5 @@ extension CheckersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
+    
 }
