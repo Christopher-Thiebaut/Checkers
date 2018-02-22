@@ -93,6 +93,7 @@ class CheckersGameController {
     
     func resetGame(){
         boardState = setupInitialBoard()
+        currentPlayer = .red
         delegate?.checkersGameControllerUpdatedBoard()
     }
 
