@@ -10,26 +10,19 @@ import UIKit
 
 class CheckersViewController: UIViewController {
     
-    // Mock Model Controller
-    var gameState: [[Int]] =
-    [[1,1,1,1,1,1,1,1],
-     [1,1,1,1,1,1,1,1],
-     [0,0,0,0,0,0,0,0],
-     [0,0,0,0,0,0,0,0],
-     [2,2,2,2,2,2,2,2],
-     [2,2,2,2,2,2,2,2]]
     var gameController = CheckersGameController()
-
     var lastSelectedIndex: IndexPath?
     
-    // Black Magic for setting up size
+    // Collection View Padding and Sizing
     fileprivate let sectionInsets = UIEdgeInsets(top: 1.5, left: 0.0, bottom: 1.5, right: 0.0)
-    fileprivate let itemsPerRow: CGFloat = 9
+    fileprivate let itemsPerRow: CGFloat = 9    // only works wih 9 for now, even though 8 is expected
 
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        gameController.delegate = self
         
         print("DEBUG: Row Count: \(gameController.boardState.count)")
         print("DEBUG: Column Count: \(gameController.boardState[0].count)")
@@ -40,17 +33,13 @@ class CheckersViewController: UIViewController {
                 else {return 2}
             }))
         }
-        
-        gameController.delegate = self
-
-        // Do any additional setup after loading the view.
     }
 
-    @IBAction func endTurnCalled(){
+    @IBAction func endTurnButtonPressed(){
         gameController.switchPlayers()
     }
 
-    @IBAction func resetCalled(_ sender: Any) {
+    @IBAction func resentButtonPressed(_ sender: Any) {
         gameController.resetGame()
         lastSelectedIndex = nil
     }
@@ -59,7 +48,6 @@ class CheckersViewController: UIViewController {
 
 extension CheckersViewController: CheckersGameControllerDelegate{
     func activePlayerChanged(toPlayer player: Player) {
-        //
     }
     
     func checkersGameControllerUpdatedBoard() {

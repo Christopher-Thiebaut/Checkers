@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -17,14 +13,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CheckersViewController" customModule="Checkers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOX-a5-psk">
-                                <rect key="frame" x="-0.5" y="146" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gUd-aa-5F7">
-                                        <rect key="frame" x="7.5" y="5" width="360" height="365"/>
+                                        <rect key="frame" x="7.5" y="5" width="585" height="590"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="0HH-TR-SaG">
                                             <size key="itemSize" width="132" height="132"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -85,11 +81,11 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="endTurnCalled" destination="BYZ-38-t0r" eventType="touchUpInside" id="xas-5u-dDj"/>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="xas-5u-dDj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kkd-Rf-sSY">
-                                <rect key="frame" x="16" y="590" width="94" height="30"/>
+                                <rect key="frame" x="16" y="523" width="94" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.04677283753" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Kak-Fq-ZGy"/>
@@ -100,12 +96,12 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="endTurnCalled" destination="BYZ-38-t0r" eventType="touchUpInside" id="2br-c4-PhV"/>
-                                    <action selector="resetCalled:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e93-ls-ty7"/>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="2br-c4-PhV"/>
+                                    <action selector="resentButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e93-ls-ty7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5q3-7C-jFC">
-                                <rect key="frame" x="265" y="590" width="94" height="30"/>
+                                <rect key="frame" x="490" y="523" width="94" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="PwC-u0-l67"/>
@@ -116,7 +112,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="endTurnCalled" destination="BYZ-38-t0r" eventType="touchUpInside" id="D2P-B3-vTN"/>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="D2P-B3-vTN"/>
                                 </connections>
                             </button>
                         </subviews>
