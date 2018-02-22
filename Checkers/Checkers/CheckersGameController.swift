@@ -71,7 +71,24 @@ class CheckersGameController {
         guard let piece = boardState[start.section][start.row], piece.owner == currentPlayer  else {
             return false
         }
-        let directionMultiplier = currentPlayer == Player.red ? -1 : 1
+        if piece.isKing {
+            if performMove(start: start, end: end, towardTop: true) {
+                return true
+            }else{
+                return performMove(start: start, end: end, towardTop: false)
+            }
+        }else if currentPlayer == .red {
+            return performMove(start: start, end: end, towardTop: true)
+        }else{
+            return performMove(start: start, end: end, towardTop: false)
+        }
+    }
+    
+    private func performMove(start: IndexPath, end: IndexPath, towardTop: Bool) -> Bool {
+        guard let piece = boardState[start.section][start.row], piece.owner == currentPlayer  else {
+            return false
+        }
+        let directionMultiplier = towardTop ? -1 : 1
         if end.section == start.section + (directionMultiplier){
             if boardState[end.section][end.row] != nil {
                 return false
@@ -105,9 +122,13 @@ class CheckersGameController {
     private func movePiece(from: IndexPath, to: IndexPath){
         boardState[to.section][to.row] = boardState[from.section][from.row]
         boardState[from.section][from.row] = nil
+        if let piece = boardState[to.section][to.row], shouldBeKing(piece, position: to) {
+            piece.isKing = true
+        }
     }
     
     private func shouldBeKing(_ piece: CheckersPiece, position: IndexPath) -> Bool {
+        if piece.isKing { return true }
         switch piece.owner {
         case .red:
             return position.section == 0
