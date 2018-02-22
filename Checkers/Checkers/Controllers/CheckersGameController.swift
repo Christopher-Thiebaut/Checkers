@@ -59,6 +59,7 @@ class CheckersGameController {
     
     init() {
         boardState = setupInitialBoard()
+        //loadGameState()
     }
     
     func positionSelected(_ chosenPosition: IndexPath){
@@ -89,6 +90,7 @@ class CheckersGameController {
         playerHasMoved = false
         moveWasJump = false
         delegate?.activePlayerChanged(toPlayer: currentPlayer)
+        //saveGameState(boardState: boardState, currentPlayer: currentPlayer)
     }
     
     func resetGame(){
@@ -245,51 +247,56 @@ class CheckersGameController {
     }
 }
 
-//MARK: - Persistence
-extension CheckersGameController {
-    private enum JSONKeys : String {
-        case currentPlayer
-        case boardState
-    }
-    
-    var dictionaryRepresentation: [String:Any] {
-        var dictionary: [String: Any] = [:]
-        dictionary.updateValue(boardState, forKey: JSONKeys.boardState.rawValue)
-        dictionary.updateValue(currentPlayer, forKey: JSONKeys.currentPlayer.rawValue)
-        return dictionary
-    }
-    
-    func restore(from dictionary: Dictionary<String, Any>){
-        guard let boardState = dictionary[JSONKeys.boardState.rawValue] as? [[CheckersPiece?]], let currentPlayer = dictionary[JSONKeys.currentPlayer.rawValue] as? Player else {
-            NSLog("Cannot restore state from dictionary because not all requried values were stored in the provided dictionary")
-            return
-        }
-        self.currentPlayer = currentPlayer
-        self.boardState = boardState
-    }
-    
-    func saveGameState(boardState: [[CheckersPiece?]], currentPlayer: Player){
-        do {
-            let data = try JSONSerialization.data(withJSONObject: self.dictionaryRepresentation, options: .prettyPrinted)
-            try data.write(to: fileURL())
-        } catch let error {
-            NSLog("Cannot save game due to error: \(error.localizedDescription)")
-        }
-    }
-    
-    func loadGameState(){
-        do {
-            let data = try Data(contentsOf: fileURL())
-            let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-        } catch let error {
-            NSLog("Could not load game state due to error: \(error.localizedDescription)")
-        }
-    }
-    
-    private func fileURL() -> URL {
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let fileName = "checkers_state.json"
-        let fullURL = urls[0].appendingPathComponent(fileName)
-        return fullURL
-    }
-}
+////MARK: - Persistence
+//extension CheckersGameController {
+//    private enum JSONKeys : String {
+//        case currentPlayer
+//        case boardState
+//    }
+//
+//    var dictionaryRepresentation: [String:Any] {
+//        var dictionary: [String: Any] = [:]
+//        dictionary.updateValue(boardState, forKey: JSONKeys.boardState.rawValue)
+//        dictionary.updateValue(currentPlayer, forKey: JSONKeys.currentPlayer.rawValue)
+//        return dictionary
+//    }
+//
+//    func restore(from dictionary: Dictionary<String, Any>){
+//        guard let boardState = dictionary[JSONKeys.boardState.rawValue] as? [[CheckersPiece?]], let currentPlayer = dictionary[JSONKeys.currentPlayer.rawValue] as? Player else {
+//            NSLog("Cannot restore state from dictionary because not all requried values were stored in the provided dictionary")
+//            return
+//        }
+//        self.currentPlayer = currentPlayer
+//        self.boardState = boardState
+//    }
+//
+//    func saveGameState(boardState: [[CheckersPiece?]], currentPlayer: Player){
+//        do {
+//            let data = try JSONSerialization.data(withJSONObject: self.dictionaryRepresentation, options: .prettyPrinted)
+//            try data.write(to: fileURL())
+//        } catch let error {
+//            NSLog("Cannot save game due to error: \(error.localizedDescription)")
+//        }
+//    }
+//
+//    func loadGameState(){
+//        do {
+//            let data = try Data(contentsOf: fileURL())
+//            guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] else {
+//                NSLog("Could not restore from saved data because there was no saved dictionary")
+//                return
+//            }
+//            restore(from: dictionary)
+//        } catch let error {
+//            NSLog("Could not load game state due to error: \(error.localizedDescription)")
+//        }
+//    }
+//
+//    private func fileURL() -> URL {
+//        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        let fileName = "checkers_state.json"
+//        let fullURL = urls[0].appendingPathComponent(fileName)
+//        return fullURL
+//    }
+//}
+
