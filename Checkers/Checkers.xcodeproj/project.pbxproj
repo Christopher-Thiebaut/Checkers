@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		615CEE90203F3A3E000E1062 /* CheckersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615CEE8F203F3A3E000E1062 /* CheckersViewController.swift */; };
 		615CEE92203F4574000E1062 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615CEE91203F4574000E1062 /* ImageCollectionViewCell.swift */; };
-		B30A4C2A203F7399002DAD2B /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30A4C29203F7399002DAD2B /* PersistenceController.swift */; };
 		B3BD98AA203F26A50067AA36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD98A9203F26A50067AA36 /* AppDelegate.swift */; };
 		B3BD98AF203F26A50067AA36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3BD98AD203F26A50067AA36 /* Main.storyboard */; };
 		B3BD98B1203F26A50067AA36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BD98B0203F26A50067AA36 /* Assets.xcassets */; };
@@ -21,7 +20,6 @@
 /* Begin PBXFileReference section */
 		615CEE8F203F3A3E000E1062 /* CheckersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckersViewController.swift; sourceTree = "<group>"; };
 		615CEE91203F4574000E1062 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
-		B30A4C29203F7399002DAD2B /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		B3BD98A6203F26A50067AA36 /* Checkers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checkers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3BD98A9203F26A50067AA36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3BD98AE203F26A50067AA36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 			children = (
 				B3BD98BF203F281E0067AA36 /* CheckersGameController.swift */,
 				615CEE8F203F3A3E000E1062 /* CheckersViewController.swift */,
-				B30A4C29203F7399002DAD2B /* PersistenceController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -183,7 +180,6 @@
 				B3BD98C0203F281E0067AA36 /* CheckersGameController.swift in Sources */,
 				615CEE92203F4574000E1062 /* ImageCollectionViewCell.swift in Sources */,
 				B3BD98BE203F27F60067AA36 /* CheckersPiece.swift in Sources */,
-				B30A4C2A203F7399002DAD2B /* PersistenceController.swift in Sources */,
 				615CEE90203F3A3E000E1062 /* CheckersViewController.swift in Sources */,
 				B3BD98AA203F26A50067AA36 /* AppDelegate.swift in Sources */,
 			);
