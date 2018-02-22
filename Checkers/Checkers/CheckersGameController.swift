@@ -82,6 +82,8 @@ class CheckersGameController {
         case .black:
             currentPlayer = .red
         }
+        playerHasMoved = false
+        moveWasJump = false
         delegate?.activePlayerChanged(toPlayer: currentPlayer)
     }
     
