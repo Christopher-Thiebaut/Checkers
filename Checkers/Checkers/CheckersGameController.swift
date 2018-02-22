@@ -30,6 +30,8 @@ class CheckersGameController {
         didSet {
             if blackPieces == 0 {
                 delegate?.playerWonGame(winner: .red)
+            }else if blackPieces < 0 {
+                fatalError("Fix your piece counting logic, dummy")
             }
         }
     }
@@ -37,6 +39,8 @@ class CheckersGameController {
         didSet {
             if redPieces == 0 {
                 delegate?.playerWonGame(winner: .black)
+            }else if redPieces < 0 {
+                fatalError("Fix your piece counting logic, dummy")
             }
         }
     }
