@@ -18,6 +18,6 @@ struct CheckersPiece {
 }
 
 enum Player {
-    case player1
-    case player2
+    case red
+    case black
 }

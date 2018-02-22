@@ -14,12 +14,13 @@ protocol CheckersGameControllerDelegate: class {
     
     func playerWonGame(winner: Player)
     
-    func checkersGameControllerSelectedPosition(_ position: IndexPath)
+    ///The delegate should use this function to update UI based on what peice is currently selected.
+    func pieceSelectedAt(_ position: IndexPath)
 }
 
 class CheckersGameController {
     
-    var currentPlayer = Player.player1
+    var currentPlayer = Player.red
     
     var boardState: [[CheckersPiece?]] = []
     
@@ -41,15 +42,35 @@ class CheckersGameController {
 //        }
 //    }
 //
-//    private func isLegalMove(start: IndexPath, end: IndexPath) -> Bool {
-//        guard let piece = boardState[start.section][start.row], piece.owner == currentPlayer  else {
-//            return false
-//        }
-//        var directionMultiplier = currentPlayer == Player.player1 ? 1 : -1
-//        if end.section == start.section + (directionMultiplier){
-//
-//        }
-//    }
+    
+    private func isLegalMove(start: IndexPath, end: IndexPath) -> Bool {
+        guard let piece = boardState[start.section][start.row], piece.owner == currentPlayer  else {
+            return false
+        }
+        let directionMultiplier = currentPlayer == Player.red ? 1 : -1
+        if end.section == start.section + (directionMultiplier){
+            if boardState[end.section][end.row] != nil {
+                return false
+            }
+            if end.row == start.row + 1 || end.row == start.row - 1 {
+                return true
+            }else{
+                return false
+            }
+        }else if end.section == start.section + (directionMultiplier * 2){
+            if boardState[end.section][end.row] != nil {
+                return false
+            }
+            let jumpedSpace = boardState[end.section - 1][(start.row + end.row)/2]
+            if let jumpedOwner = jumpedSpace?.owner, jumpedOwner != currentPlayer {
+                return true
+            }else{
+                return false
+            }
+        }else{
+            return false
+        }
+    }
     
     private func setupInitialBoard(){
         var board: [[CheckersPiece?]] = []
@@ -57,18 +78,18 @@ class CheckersGameController {
         
         for _ in 0..<playerSpace {
             if justDidType1Row {
-                board.append(createRowPrototype2(forPlayer: Player.player2))
+                board.append(createRowPrototype2(forPlayer: Player.black))
             }else{
-                board.append(createRowPrototype1(forPlayer: Player.player2))
+                board.append(createRowPrototype1(forPlayer: Player.black))
             }
         }
         board.append(createEmptyRow())
         board.append(createEmptyRow())
         for _ in 0..<playerSpace {
             if justDidType1Row {
-                board.append(createRowPrototype2(forPlayer: Player.player1))
+                board.append(createRowPrototype2(forPlayer: Player.red))
             }else{
-                board.append(createRowPrototype1(forPlayer: Player.player1))
+                board.append(createRowPrototype1(forPlayer: Player.red))
             }
         }
     }
