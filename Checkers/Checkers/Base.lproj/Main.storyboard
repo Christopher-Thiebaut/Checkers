@@ -25,7 +25,6 @@
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gUd-aa-5F7">
                                         <rect key="frame" x="5" y="5" width="365" height="365"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="2.5" id="0HH-TR-SaG">
                                             <size key="itemSize" width="132" height="132"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -65,7 +64,7 @@
                                         </connections>
                                     </collectionView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="gUd-aa-5F7" firstAttribute="leading" secondItem="kOX-a5-psk" secondAttribute="leading" constant="5" id="PsK-3e-TjC"/>
                                     <constraint firstAttribute="bottom" secondItem="gUd-aa-5F7" secondAttribute="bottom" constant="5" id="aPd-IY-OPg"/>

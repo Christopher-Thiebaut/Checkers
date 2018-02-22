@@ -38,6 +38,8 @@ class CheckersViewController: UIViewController {
                 else {return 2}
             }))
         }
+        
+        gameController.delegate = self
 
         // Do any additional setup after loading the view.
     }
@@ -75,6 +77,21 @@ extension CheckersViewController: UICollectionViewDataSource{
         
         cell.backgroundColor = UIColor.blue
         let piece = gameController.boardState[indexPath.section][indexPath.row]
+        
+        if indexPath.section % 2 == 0{
+            if indexPath.row % 2 == 0{
+                cell.backgroundColor = UIColor.darkGray
+            }else{
+                cell.backgroundColor = UIColor.white
+            }
+        }else{
+            if indexPath.row % 2 == 0{
+                cell.backgroundColor = UIColor.white
+            }else{
+                cell.backgroundColor = UIColor.darkGray
+            }
+        }
+
         if piece == nil{
             //nothing!
             cell.imageView!.image = nil
@@ -95,6 +112,11 @@ extension CheckersViewController: UICollectionViewDataSource{
 
 extension CheckersViewController: CheckersGameControllerDelegate{
     func checkersGameControllerUpdatedBoard() {
+        //Testing animation
+//        UIView.animate(withDuration: 0.5) { [weak self] in
+//            self?.collectionView?.reloadData()
+//        }
+        
         collectionView.reloadData()
     }
     
@@ -114,6 +136,10 @@ extension CheckersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: Sect:\(indexPath.section) Row:\(indexPath.row)")
         gameController.positionSelected(indexPath)
+//        let emptyRow = Array<CheckersPiece?>.init(repeating: nil, count: 8)
+//        for i in 0...7{
+//            gameController.boardState[i] = emptyRow
+//        }
     }
 }
 
