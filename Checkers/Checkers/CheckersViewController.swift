@@ -16,11 +16,9 @@ class CheckersViewController: UIViewController {
      [1,1,1,1,1,1,1,1],
      [0,0,0,0,0,0,0,0],
      [0,0,0,0,0,0,0,0],
-     [0,0,0,0,0,0,0,0],
-     [0,0,0,0,0,0,0,0],
      [2,2,2,2,2,2,2,2],
      [2,2,2,2,2,2,2,2]]
-    
+    var gameController = CheckersGameController()
     
     // Black Magic for setting up size
     fileprivate let sectionInsets = UIEdgeInsets(top: 2.5, left: 0.0, bottom: 2.5, right: 0.0)
@@ -31,8 +29,15 @@ class CheckersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("DEBUG: Row Count: \(gameState.count)")
-        print("DEBUG: Column Count: \(gameState[0].count)")
+        print("DEBUG: Row Count: \(gameController.boardState.count)")
+        print("DEBUG: Column Count: \(gameController.boardState[0].count)")
+        for row in gameController.boardState{
+            print (row.map({ (piece) -> Int in
+                if piece == nil {return 0}
+                if piece!.owner == .red {return 1}
+                else {return 2}
+            }))
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -66,15 +71,41 @@ extension CheckersViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let colors = [UIColor.green, UIColor.blue, UIColor.red]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "checkersCell", for: indexPath) as! ImageCollectionViewCell
         
-        let debugState = gameState[indexPath.section][indexPath.row]
+        cell.backgroundColor = UIColor.blue
+        let piece = gameController.boardState[indexPath.section][indexPath.row]
+        if piece == nil{
+            //nothing!
+            cell.imageView!.image = nil
+            return cell
+        }
+        cell.imageView?.image = UIImage(named: piece!.owner == .red ? "red" : "black")
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "checkersCell", for: indexPath)
-        cell.backgroundColor = colors[debugState]
+        
+//        let colors = [UIColor.green, UIColor.blue, UIColor.red]
+//        let debugState = gameState[indexPath.section][indexPath.row]
+//        cell.backgroundColor = colors[debugState]
+//        cell.imageView?.image = UIImage(named: ["null","red","black"][debugState])
         
         return cell
     }
+    
+}
+
+extension CheckersViewController: CheckersGameControllerDelegate{
+    func checkersGameControllerUpdatedBoard() {
+        collectionView.reloadData()
+    }
+    
+    func playerWonGame(winner: Player) {
+        //
+    }
+    
+    func pieceSelectedAt(_ position: IndexPath) {
+        // Highlighting pieces
+    }
+    
     
 }
 
@@ -82,6 +113,7 @@ extension CheckersViewController: UICollectionViewDelegate {
  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: Sect:\(indexPath.section) Row:\(indexPath.row)")
+        gameController.positionSelected(indexPath)
     }
 }
 
