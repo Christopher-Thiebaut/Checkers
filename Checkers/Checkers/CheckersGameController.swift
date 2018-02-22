@@ -33,17 +33,20 @@ class CheckersGameController {
     private var justDidType1Row = false
     
     init() {
-        setupInitialBoard()
+        boardState = setupInitialBoard()
     }
     
-//    func positionSelected(indexPath: IndexPath){
-//        if let currentPosition = currentlySelectedPosition {
-//
-//        }
-//    }
-//
+    func positionSelected(_ chosenPosition: IndexPath){
+        if let currentPosition = currentlySelectedPosition, performMove(start: currentPosition, end: chosenPosition) {
+            delegate?.checkersGameControllerUpdatedBoard()
+        }else if boardState[chosenPosition.section][chosenPosition.row]?.owner == currentPlayer {
+            currentlySelectedPosition = chosenPosition
+            delegate?.pieceSelectedAt(chosenPosition)
+        }
+    }
+
     
-    private func isLegalMove(start: IndexPath, end: IndexPath) -> Bool {
+    private func performMove(start: IndexPath, end: IndexPath) -> Bool {
         guard let piece = boardState[start.section][start.row], piece.owner == currentPlayer  else {
             return false
         }
@@ -53,6 +56,7 @@ class CheckersGameController {
                 return false
             }
             if end.row == start.row + 1 || end.row == start.row - 1 {
+                
                 return true
             }else{
                 return false
@@ -72,7 +76,7 @@ class CheckersGameController {
         }
     }
     
-    private func setupInitialBoard(){
+    private func setupInitialBoard() -> [[CheckersPiece?]]{
         var board: [[CheckersPiece?]] = []
         let playerSpace = (boardSize/2) - 2
         
@@ -92,6 +96,7 @@ class CheckersGameController {
                 board.append(createRowPrototype1(forPlayer: Player.red))
             }
         }
+        return board
     }
     
     private func createRowPrototype1(forPlayer player: Player) -> [CheckersPiece?]{
