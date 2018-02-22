@@ -15,7 +15,8 @@ class CheckersViewController: UIViewController {
     
     // Collection View Padding and Sizing
     fileprivate let sectionInsets = UIEdgeInsets(top: 1.5, left: 0.0, bottom: 1.5, right: 0.0)
-    fileprivate let itemsPerRow: CGFloat = 9    // only works wih 9 for now, even though 8 is expected
+    fileprivate let itemsPerRow: CGFloat = 9
+        // only works wih 9 for now, even though 8 is expected
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -47,7 +48,12 @@ class CheckersViewController: UIViewController {
 }
 
 extension CheckersViewController: CheckersGameControllerDelegate{
+    
     func activePlayerChanged(toPlayer player: Player) {
+        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+            dehighlightCell(at: indexPath)
+        }
+        gameController.switchPlayers()
     }
     
     func checkersGameControllerUpdatedBoard() {
@@ -58,7 +64,7 @@ extension CheckersViewController: CheckersGameControllerDelegate{
     }
     
     func playerWonGame(winner: Player) {
-        // Alert Controller
+        
         let winnerAlertController = UIAlertController(title: "Winner!", message: "Congratulations! \(winner == .red ? "Red":"Black") has won!", preferredStyle: .alert)
         let okayAction = UIAlertAction(title: "Play again", style: .default) { [weak self] _ in
             self?.gameController.resetGame()
@@ -82,7 +88,7 @@ extension CheckersViewController: CheckersGameControllerDelegate{
         }
     }
     
-    // HELPER
+    // Helper Functions to (de)highlight cells
     
     fileprivate func highlightCell(at indexPath: IndexPath){
         guard let cell = collectionView.cellForItem(at: indexPath) as? ImageCollectionViewCell else {
@@ -116,9 +122,9 @@ extension CheckersViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "checkersCell", for: indexPath) as! ImageCollectionViewCell
         
-        cell.backgroundColor = UIColor.blue
         let piece = gameController.boardState[indexPath.section][indexPath.row]
         
+        // Color the board
         if indexPath.section % 2 == 0{
             if indexPath.row % 2 == 0{
                 cell.backgroundColor = UIColor.darkGray
@@ -133,8 +139,8 @@ extension CheckersViewController: UICollectionViewDataSource{
             }
         }
 
+        // Set piece images
         if piece == nil{
-            //nothing!
             cell.imageView!.image = nil
             return cell
         }
@@ -168,7 +174,7 @@ extension CheckersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //2
+        
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
@@ -176,14 +182,14 @@ extension CheckersViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
-    //3
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
     }
     
-    // 4
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
