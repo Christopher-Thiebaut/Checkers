@@ -28,6 +28,7 @@ class CheckersViewController: UIViewController {
         gameController.delegate = self
         
         blackPlayerEndTurnButton.isHidden = true //red always starts
+        blackPlayerEndTurnButton.layer.setAffineTransform(CGAffineTransform(scaleX: -1, y: -1))
         
         print("DEBUG: Row Count: \(gameController.boardState.count)")
         print("DEBUG: Column Count: \(gameController.boardState[0].count)")
