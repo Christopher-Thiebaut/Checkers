@@ -12,6 +12,8 @@
 		B3BD98AF203F26A50067AA36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3BD98AD203F26A50067AA36 /* Main.storyboard */; };
 		B3BD98B1203F26A50067AA36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3BD98B0203F26A50067AA36 /* Assets.xcassets */; };
 		B3BD98B4203F26A50067AA36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3BD98B2203F26A50067AA36 /* LaunchScreen.storyboard */; };
+		B3BD98BE203F27F60067AA36 /* CheckersPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD98BD203F27F60067AA36 /* CheckersPiece.swift */; };
+		B3BD98C0203F281E0067AA36 /* CheckersGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BD98BF203F281E0067AA36 /* CheckersGameController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		B3BD98B0203F26A50067AA36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3BD98B3203F26A50067AA36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3BD98B5203F26A50067AA36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3BD98BD203F27F60067AA36 /* CheckersPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckersPiece.swift; sourceTree = "<group>"; };
+		B3BD98BF203F281E0067AA36 /* CheckersGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckersGameController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				B3BD98B0203F26A50067AA36 /* Assets.xcassets */,
 				B3BD98B2203F26A50067AA36 /* LaunchScreen.storyboard */,
 				B3BD98B5203F26A50067AA36 /* Info.plist */,
+				B3BD98BD203F27F60067AA36 /* CheckersPiece.swift */,
+				B3BD98BF203F281E0067AA36 /* CheckersGameController.swift */,
 			);
 			path = Checkers;
 			sourceTree = "<group>";
@@ -137,6 +143,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3BD98AC203F26A50067AA36 /* ViewController.swift in Sources */,
+				B3BD98C0203F281E0067AA36 /* CheckersGameController.swift in Sources */,
+				B3BD98BE203F27F60067AA36 /* CheckersPiece.swift in Sources */,
 				B3BD98AA203F26A50067AA36 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
