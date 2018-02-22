@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOX-a5-psk">
-                                <rect key="frame" x="-0.5" y="146" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gUd-aa-5F7">
                                         <rect key="frame" x="7.5" y="5" width="360" height="365"/>
@@ -85,7 +85,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="endTurnCalled" destination="BYZ-38-t0r" eventType="touchUpInside" id="xas-5u-dDj"/>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="xas-5u-dDj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kkd-Rf-sSY">
@@ -100,8 +100,8 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="endTurnCalled" destination="BYZ-38-t0r" eventType="touchUpInside" id="2br-c4-PhV"/>
-                                    <action selector="resetCalled:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e93-ls-ty7"/>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="2br-c4-PhV"/>
+                                    <action selector="resentButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e93-ls-ty7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5q3-7C-jFC">
@@ -116,7 +116,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="endTurnCalled" destination="BYZ-38-t0r" eventType="touchUpInside" id="D2P-B3-vTN"/>
+                                    <action selector="endTurnButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="D2P-B3-vTN"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -135,7 +135,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="blackPlayerEndTurnButton" destination="aKC-R5-dS6" id="dQi-B8-lTc"/>
                         <outlet property="collectionView" destination="gUd-aa-5F7" id="FOZ-i6-6cM"/>
+                        <outlet property="redPlayerEndTurnButton" destination="5q3-7C-jFC" id="qvQ-VF-2HW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
