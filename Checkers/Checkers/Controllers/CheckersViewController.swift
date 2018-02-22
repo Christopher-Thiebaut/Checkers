@@ -49,21 +49,39 @@ class CheckersViewController: UIViewController {
         lastSelectedIndex = nil
     }
     
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            let resetQuestionAlertController = UIAlertController(title: "Reset Game", message: "Are you sure you want to reset?", preferredStyle: .alert)
+            let yesAction = UIAlertAction(title: "Yes", style: .destructive, handler: { [weak self] _ in
+                self!.gameController.resetGame()
+                self!.lastSelectedIndex = nil
+            })
+            let noAction = UIAlertAction(title: "No", style: .cancel)
+            resetQuestionAlertController.addAction(yesAction)
+            resetQuestionAlertController.addAction(noAction)
+            present(resetQuestionAlertController, animated: true)
+        }
+    }
+    
 }
 
 extension CheckersViewController: CheckersGameControllerDelegate{
     
     func activePlayerChanged(toPlayer player: Player) {
+        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+            dehighlightCell(at: indexPath)
+        }
+        
         if player == .black{
             redPlayerEndTurnButton.isHidden = true
             blackPlayerEndTurnButton.isHidden = false
         }else{
             redPlayerEndTurnButton.isHidden = false
             blackPlayerEndTurnButton.isHidden = true
-        }
-        
-        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
-            dehighlightCell(at: indexPath)
         }
     }
     
