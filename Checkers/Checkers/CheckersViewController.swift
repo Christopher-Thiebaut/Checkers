@@ -63,7 +63,7 @@ class CheckersViewController: UIViewController {
 extension CheckersViewController: UICollectionViewDataSource{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 6
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -71,18 +71,41 @@ extension CheckersViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let colors = [UIColor.green, UIColor.blue, UIColor.red]
-        let debugState = gameState[indexPath.section][indexPath.row]
-        
-        
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "checkersCell", for: indexPath) as! ImageCollectionViewCell
         
-        cell.backgroundColor = colors[debugState]
-        cell.imageView?.image = UIImage(named: ["null","red","black"][debugState])
+        cell.backgroundColor = UIColor.blue
+        let piece = gameController.boardState[indexPath.section][indexPath.row]
+        if piece == nil{
+            //nothing!
+            cell.imageView!.image = nil
+            return cell
+        }
+        cell.imageView?.image = UIImage(named: piece!.owner == .red ? "red" : "black")
+        
+        
+//        let colors = [UIColor.green, UIColor.blue, UIColor.red]
+//        let debugState = gameState[indexPath.section][indexPath.row]
+//        cell.backgroundColor = colors[debugState]
+//        cell.imageView?.image = UIImage(named: ["null","red","black"][debugState])
         
         return cell
     }
+    
+}
+
+extension CheckersViewController: CheckersGameControllerDelegate{
+    func checkersGameControllerUpdatedBoard() {
+        collectionView.reloadData()
+    }
+    
+    func playerWonGame(winner: Player) {
+        //
+    }
+    
+    func pieceSelectedAt(_ position: IndexPath) {
+        // Highlighting pieces
+    }
+    
     
 }
 
@@ -90,6 +113,7 @@ extension CheckersViewController: UICollectionViewDelegate {
  
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected: Sect:\(indexPath.section) Row:\(indexPath.row)")
+        gameController.positionSelected(indexPath)
     }
 }
 
