@@ -19,6 +19,8 @@ class CheckersViewController: UIViewController {
         // only works wih 9 for now, even though 8 is expected
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var blackPlayerEndTurnButton: UIButton!
+    @IBOutlet weak var redPlayerEndTurnButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +52,17 @@ class CheckersViewController: UIViewController {
 extension CheckersViewController: CheckersGameControllerDelegate{
     
     func activePlayerChanged(toPlayer player: Player) {
+        if player == .black{
+            redPlayerEndTurnButton.isHidden = true
+            blackPlayerEndTurnButton.isHidden = false
+        }else{
+            redPlayerEndTurnButton.isHidden = false
+            blackPlayerEndTurnButton.isHidden = true
+        }
+        
         collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
             dehighlightCell(at: indexPath)
         }
-        gameController.switchPlayers()
     }
     
     func checkersGameControllerUpdatedBoard() {
