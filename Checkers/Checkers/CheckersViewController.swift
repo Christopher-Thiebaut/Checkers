@@ -19,6 +19,8 @@ class CheckersViewController: UIViewController {
      [2,2,2,2,2,2,2,2],
      [2,2,2,2,2,2,2,2]]
     var gameController = CheckersGameController()
+    // resetGameState
+
     var lastSelectedIndex: IndexPath?
     
     // Black Magic for setting up size
@@ -56,6 +58,10 @@ class CheckersViewController: UIViewController {
 }
 
 extension CheckersViewController: CheckersGameControllerDelegate{
+    func activePlayerChanged(toPlayer player: Player) {
+        //
+    }
+    
     func checkersGameControllerUpdatedBoard() {
         collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
             dehighlightCell(at: indexPath)
@@ -156,8 +162,6 @@ extension CheckersViewController: UICollectionViewDataSource{
         case (false, .black):
             cell.imageView?.image = #imageLiteral(resourceName: "black")
         }
-        
-        cell.imageView?.image = UIImage(named: piece!.owner == .red ? "red" : "black")
         
         return cell
     }
