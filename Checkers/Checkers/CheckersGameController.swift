@@ -64,7 +64,7 @@ class CheckersGameController {
     func positionSelected(_ chosenPosition: IndexPath){
         if let currentPosition = currentlySelectedPosition, performMove(start: currentPosition, end: chosenPosition) {
             delegate?.checkersGameControllerUpdatedBoard()
-            currentPlayer = currentPlayer == .red ? .black : .red
+            //currentPlayer = currentPlayer == .red ? .black : .red
             currentlySelectedPosition = nil
             playerHasMoved = true
             if moveWasJump {
@@ -119,7 +119,7 @@ class CheckersGameController {
             return false
         }
         let directionMultiplier = towardTop ? -1 : 1
-        if end.section == start.section + (directionMultiplier) && !moveWasJump{
+        if end.section == start.section + (directionMultiplier) && !playerHasMoved{
             if boardState[end.section][end.row] != nil {
                 return false
             }
