@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CheckersPiece {
+class CheckersPiece {
     let owner: Player
     var isKing = false
     
